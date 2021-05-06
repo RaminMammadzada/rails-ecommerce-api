@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
   before_action :set_category
-  before_action :set_category_product, only: [:show, :update, :destroy]
+  before_action :set_category_product, only: %i[show update destroy]
 
   # GET /categories/:category_id/products
   def index

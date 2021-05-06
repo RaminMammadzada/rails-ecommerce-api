@@ -63,7 +63,7 @@ RSpec.describe 'Products API' do
 
   # Test suite for PUT /categories/:category_id/products
   describe 'POST /categories/:category_id/products' do
-    let(:valid_attributes) { { name: "Sample Product B", price: 44.1, details: "Great product" } }
+    let(:valid_attributes) { { name: 'Sample Product B', price: 44.1, details: 'Great product' } }
 
     context 'when request attributes are valid' do
       before { post "/categories/#{category_id}/products", params: valid_attributes }
@@ -88,7 +88,7 @@ RSpec.describe 'Products API' do
 
   # Test suite for PUT /categories/:category_id/products/:id
   describe 'PUT /categories/:category_id/products/:id' do
-    let(:valid_attributes) { { name: 'Sample Product A', price: 11.2, details: "sample details A" } }
+    let(:valid_attributes) { { name: 'Sample Product A', price: 11.2, details: 'sample details A' } }
 
     before { put "/categories/#{category_id}/products/#{id}", params: valid_attributes }
 
