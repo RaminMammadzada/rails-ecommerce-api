@@ -9,5 +9,4 @@ RSpec.describe Category, type: :model do
   # Validation tests
   # ensure column title is presented before saving
   it { should validate_presence_of(:title) }
-
 end

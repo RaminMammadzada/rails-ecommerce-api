@@ -26,7 +26,7 @@ RSpec.describe 'Categories API', type: :request do
   describe "GET /categories/:id" do
     # make HTTP get request before each example
     before { get "/categories/#{category_id}" }
-    
+
     context "when the record exists" do
       it "returns the category" do
         expect(json).not_to be_empty
@@ -54,7 +54,7 @@ RSpec.describe 'Categories API', type: :request do
   # Test suite for POST /categories
   describe "POST /categories" do
     # valid payload
-    let(:valid_attributes) { { title: "Sample category name 1"} }
+    let(:valid_attributes) { { title: "Sample category name 1" } }
 
     context "when the request is valid" do
       before { post "/categories", params: valid_attributes }
@@ -70,7 +70,7 @@ RSpec.describe 'Categories API', type: :request do
 
     context "when the request is not valid" do
       before { post "/categories", params: {} }
-      
+
       it "returns status code 422" do
         expect(response).to have_http_status(422)
       end
@@ -83,10 +83,10 @@ RSpec.describe 'Categories API', type: :request do
 
   # Test suite for PUT /categories/:id
   describe "PUT /cateogires/:id" do
-    let(:valid_attributes) {{ title: "Jackets" }}
+    let(:valid_attributes) { { title: "Jackets" } }
 
     context "when the record exists" do
-      before { put "/categories/#{category_id}", params:  valid_attributes }
+      before { put "/categories/#{category_id}", params: valid_attributes }
 
       it "updates the record" do
         expect(response.body).to be_empty
@@ -105,6 +105,4 @@ RSpec.describe 'Categories API', type: :request do
       expect(response).to have_http_status(204)
     end
   end
-
-
 end

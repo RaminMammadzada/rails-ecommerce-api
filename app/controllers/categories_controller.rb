@@ -31,6 +31,7 @@ class CategoriesController < ApplicationController
   end
 
   private
+
   def category_params
     # whitelist params
     params.permit(:title)

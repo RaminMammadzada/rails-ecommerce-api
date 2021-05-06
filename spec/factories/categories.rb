@@ -4,4 +4,3 @@ FactoryBot.define do
     title { Faker::Lorem.word }
   end
 end
-    
