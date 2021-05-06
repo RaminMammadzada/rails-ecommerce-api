@@ -63,7 +63,7 @@ RSpec.describe 'Products API' do
 
   # Test suite for PUT /categories/:category_id/products
   describe 'POST /categories/:category_id/products' do
-    let(:valid_attributes) { { name: 'Visit Narnia', price: 44.3, details: "Great product" } }
+    let(:valid_attributes) { { name: "Sample Product B", price: 44.1, details: "Great product" } }
 
     context 'when request attributes are valid' do
       before { post "/categories/#{category_id}/products", params: valid_attributes }
@@ -99,7 +99,7 @@ RSpec.describe 'Products API' do
 
       it 'updates the product' do
         updated_product = Product.find(id)
-        expect(updated_product.name).to match(/Mozart/)
+        expect(updated_product.name).to match(/Sample Product A/)
       end
     end
 
@@ -118,7 +118,7 @@ RSpec.describe 'Products API' do
 
   # Test suite for DELETE /categories/:id
   describe 'DELETE /categories/:id' do
-    before { delete "/categories/#{category_id}/items/#{id}" }
+    before { delete "/categories/#{category_id}/products/#{id}" }
 
     it 'returns status code 204' do
       expect(response).to have_http_status(204)
