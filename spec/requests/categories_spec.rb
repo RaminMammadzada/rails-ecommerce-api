@@ -54,7 +54,7 @@ RSpec.describe 'Categories API', type: :request do
   # Test suite for POST /categories
   describe 'POST /categories' do
     # valid payload
-    let(:valid_attributes) { { title: 'Sample category name 1' } }
+    let(:valid_attributes) { { title: 'Sample category name 1', created_by: '1948793536' } }
 
     context 'when the request is valid' do
       before { post '/categories', params: valid_attributes }
