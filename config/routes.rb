@@ -3,4 +3,6 @@ Rails.application.routes.draw do
   resources :categories do
     resources :products
   end
+
+  post 'auth/login', to: 'authentication#authenticate'
 end
