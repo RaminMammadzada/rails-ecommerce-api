@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe AuthorizeApiRequest do
-  it "is available as described_class" do
+  it 'is available as described_class' do
     expect(described_class).to eq(AuthorizeApiRequest)
   end
 
@@ -45,7 +45,10 @@ RSpec.describe AuthorizeApiRequest do
             .to raise_error(ExceptionHandler::InvalidToken, /Invalid token/)
         end
       end
+    end
 
+    # returns error message when unautorized request
+    context 'when unautorized request' do
       context 'when token is expired' do
         let(:header) { { 'Authorization' => expired_token_generator(user.id) } }
         subject(:request_obj) { described_class.new(header) }

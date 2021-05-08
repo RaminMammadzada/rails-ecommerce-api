@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Products API' do  
+RSpec.describe 'Products API' do
   # Initialize the test data
   let(:user) { create(:user) }
   let!(:category) { create(:category, created_by: user.id) }
@@ -8,7 +8,7 @@ RSpec.describe 'Products API' do
   let(:category_id) { category.id }
   let(:id) { products.first.id }
   let(:headers) { valid_headers }
-  
+
   # Test suite for GET /categories/:category_id/products
   describe 'GET /categories/:category_id/products' do
     before { get "/categories/#{category_id}/products", params: {}, headers: headers }

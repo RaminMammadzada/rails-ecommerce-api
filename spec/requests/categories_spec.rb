@@ -61,7 +61,7 @@ RSpec.describe 'Categories API', type: :request do
     let(:valid_attributes) { { title: 'Sample category name 1' }.to_json }
 
     context 'when the request is valid' do
-      before { post '/categories', params: valid_attributes, headers: headers}
+      before { post '/categories', params: valid_attributes, headers: headers }
 
       it 'creates a category' do
         expect(json['title']).to eq('Sample category name 1')

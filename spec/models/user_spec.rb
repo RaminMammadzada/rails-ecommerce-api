@@ -6,7 +6,7 @@ RSpec.describe User, type: :model do
   # Association test
   # ensure User model has a 1:n relationship with the Category model
   it { should have_many(:categories) }
-  
+
   # Validation tests
   # ensure name, email and password_digest are present before save
   it { should validate_presence_of(:name) }
