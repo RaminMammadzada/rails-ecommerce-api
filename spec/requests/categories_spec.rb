@@ -3,13 +3,17 @@ require 'spec_helper'
 
 RSpec.describe 'Categories API', type: :request do
   # initialize test data
-  let!(:categories) { create_list(:category, 10) }
+  # add todos owner
+  let(:user) { create(:user) }
+  let!(:categories) { create_list(:category, 10, created_by: user.id) }
   let(:category_id) { categories.first.id }
+  # authorize request
+  let(:headers) { valid_headers }
 
   # Test suite for GET /categories
   describe 'GET /categories' do
     # make HTTP get request before each example
-    before { get '/categories' }
+    before { get '/categories', params: {}, headers: headers }
 
     it 'returns categories' do
       # Note `json` is a custom helper to parse JSON responses
@@ -25,7 +29,7 @@ RSpec.describe 'Categories API', type: :request do
   # Test suite for GET /categories/:id
   describe 'GET /categories/:id' do
     # make HTTP get request before each example
-    before { get "/categories/#{category_id}" }
+    before { get "/categories/#{category_id}", params: {}, headers: headers }
 
     context 'when the record exists' do
       it 'returns the category' do
@@ -54,10 +58,10 @@ RSpec.describe 'Categories API', type: :request do
   # Test suite for POST /categories
   describe 'POST /categories' do
     # valid payload
-    let(:valid_attributes) { { title: 'Sample category name 1', created_by: '1948793536' } }
+    let(:valid_attributes) { { title: 'Sample category name 1', created_by: user.id.to_s }.to_json }
 
     context 'when the request is valid' do
-      before { post '/categories', params: valid_attributes }
+      before { post '/categories', params: valid_attributes, headers: headers}
 
       it 'creates a category' do
         expect(json['title']).to eq('Sample category name 1')
@@ -69,24 +73,24 @@ RSpec.describe 'Categories API', type: :request do
     end
 
     context 'when the request is not valid' do
-      before { post '/categories', params: {} }
+      before { post '/categories', params: invalid_attributes, headers: headers }
 
       it 'returns status code 422' do
         expect(response).to have_http_status(422)
       end
 
       it 'return a validation failure message' do
-        expect(response.body).to match(/Validation failed: Title can't be blank/)
+        expect(json['message']).to match(/Validation failed: Title can't be blank/)
       end
     end
   end
 
   # Test suite for PUT /categories/:id
   describe 'PUT /cateogires/:id' do
-    let(:valid_attributes) { { title: 'Jackets' } }
+    let(:valid_attributes) { { title: 'Jackets' }.to_json }
 
     context 'when the record exists' do
-      before { put "/categories/#{category_id}", params: valid_attributes }
+      before { put "/categories/#{category_id}", params: valid_attributes, headers: headers }
 
       it 'updates the record' do
         expect(response.body).to be_empty
@@ -99,7 +103,7 @@ RSpec.describe 'Categories API', type: :request do
   end
 
   describe 'DELETE /categories/:id' do
-    before { delete "/categories/#{category_id}" }
+    before { delete "/categories/#{category_id}", params: {}, headers: headers }
 
     it 'returns status code 204' do
       expect(response).to have_http_status(204)
