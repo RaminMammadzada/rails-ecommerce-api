@@ -9,8 +9,9 @@ class CategoriesController < ApplicationController
 
   # POST /categories
   def create
+    # create categories belonging to current user
     @category = current_user.categories.create!(category_params)
-    json_response(@category)
+    json_response(@category, :created)
   end
 
   # GET /categories/:id

@@ -58,7 +58,7 @@ RSpec.describe 'Categories API', type: :request do
   # Test suite for POST /categories
   describe 'POST /categories' do
     # valid payload
-    let(:valid_attributes) { { title: 'Sample category name 1', created_by: user.id.to_s }.to_json }
+    let(:valid_attributes) { { title: 'Sample category name 1' }.to_json }
 
     context 'when the request is valid' do
       before { post '/categories', params: valid_attributes, headers: headers}
@@ -68,7 +68,7 @@ RSpec.describe 'Categories API', type: :request do
       end
 
       it 'returns status code 201' do
-        expect(response).to have_http_status(200)
+        expect(response).to have_http_status(201)
       end
     end
 
