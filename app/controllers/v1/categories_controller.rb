@@ -4,7 +4,8 @@ module V1
 
     # GET /categories
     def index
-      @categories = current_user.categories
+      # get paginated current user categories
+      @categories = current_user.categories.paginate(page: category_params[:page], per_page: category_params[:per_page])
       json_response(@categories)
     end
 
@@ -36,7 +37,7 @@ module V1
 
     def category_params
       # whitelist params
-      params.permit(:title)
+      params.permit(:title, :page, :per_page)
     end
 
     def set_category

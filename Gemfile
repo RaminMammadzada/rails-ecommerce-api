@@ -26,6 +26,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'jwt'
 gem 'rubocop', '>= 1.0', '< 2.0'
 gem 'active_model_serializers', '~> 0.10.0'
+gem 'will_paginate', '~> 3.1.0'
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 # gem 'rack-cors'
