@@ -1,8 +1,9 @@
 class ApiVersion
   attr_reader :version, :default
 
-  def initialize(version, default = false)
+  def initialize(version, default)
     @version = version
+    default = false if default.nil?
     @default = default
   end
 
@@ -16,6 +17,6 @@ class ApiVersion
   def check_headers(headers)
     # check version from Accept headers; expect custom media type `categories`
     accept = headers[:accept]
-    accept && accept.include?("application/vnd.categories.#{version}+json")
+    accept&.include?("application/vnd.categories.#{version}+json")
   end
 end
