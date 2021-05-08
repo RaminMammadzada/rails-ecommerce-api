@@ -73,6 +73,7 @@ RSpec.describe 'Categories API', type: :request do
     end
 
     context 'when the request is not valid' do
+      let(:invalid_attributes) { { title: nil }.to_json }
       before { post '/categories', params: invalid_attributes, headers: headers }
 
       it 'returns status code 422' do

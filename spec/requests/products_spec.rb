@@ -1,15 +1,17 @@
 require 'rails_helper'
 
-RSpec.describe 'Products API' do
+RSpec.describe 'Products API' do  
   # Initialize the test data
-  let!(:category) { create(:category) }
+  let(:user) { create(:user) }
+  let!(:category) { create(:category, created_by: user.id) }
   let!(:products) { create_list(:product, 20, category_id: category.id) }
   let(:category_id) { category.id }
   let(:id) { products.first.id }
-
+  let(:headers) { valid_headers }
+  
   # Test suite for GET /categories/:category_id/products
   describe 'GET /categories/:category_id/products' do
-    before { get "/categories/#{category_id}/products" }
+    before { get "/categories/#{category_id}/products", params: {}, headers: headers }
 
     context 'when category exists' do
       it 'returns status code 200' do
@@ -36,7 +38,7 @@ RSpec.describe 'Products API' do
 
   # Test suite for GET /categories/:category_id/products/:id
   describe 'GET /categories/:category_id/products/:id' do
-    before { get "/categories/#{category_id}/products/#{id}" }
+    before { get "/categories/#{category_id}/products/#{id}", params: {}, headers: headers }
 
     context 'when category product exists' do
       it 'returns status code 200' do
@@ -63,10 +65,10 @@ RSpec.describe 'Products API' do
 
   # Test suite for PUT /categories/:category_id/products
   describe 'POST /categories/:category_id/products' do
-    let(:valid_attributes) { { name: 'Sample Product B', price: 44.1, details: 'Great product' } }
+    let(:valid_attributes) { { name: 'Sample Product B', price: 44.1, details: 'Great product' }.to_json }
 
     context 'when request attributes are valid' do
-      before { post "/categories/#{category_id}/products", params: valid_attributes }
+      before { post "/categories/#{category_id}/products", params: valid_attributes, headers: headers }
 
       it 'returns status code 201' do
         expect(response).to have_http_status(201)
@@ -74,7 +76,7 @@ RSpec.describe 'Products API' do
     end
 
     context 'when an invalid request' do
-      before { post "/categories/#{category_id}/products", params: {} }
+      before { post "/categories/#{category_id}/products", params: {}, headers: headers }
 
       it 'returns status code 422' do
         expect(response).to have_http_status(422)
@@ -88,9 +90,9 @@ RSpec.describe 'Products API' do
 
   # Test suite for PUT /categories/:category_id/products/:id
   describe 'PUT /categories/:category_id/products/:id' do
-    let(:valid_attributes) { { name: 'Sample Product A', price: 11.2, details: 'sample details A' } }
+    let(:valid_attributes) { { name: 'Sample Product A', price: 11.2, details: 'sample details A' }.to_json }
 
-    before { put "/categories/#{category_id}/products/#{id}", params: valid_attributes }
+    before { put "/categories/#{category_id}/products/#{id}", params: valid_attributes, headers: headers }
 
     context 'when product exists' do
       it 'returns status code 204' do
@@ -118,7 +120,7 @@ RSpec.describe 'Products API' do
 
   # Test suite for DELETE /categories/:id
   describe 'DELETE /categories/:id' do
-    before { delete "/categories/#{category_id}/products/#{id}" }
+    before { delete "/categories/#{category_id}/products/#{id}", params: {}, headers: headers }
 
     it 'returns status code 204' do
       expect(response).to have_http_status(204)
