@@ -3,13 +3,13 @@ class CategoriesController < ApplicationController
 
   # GET /categories
   def index
-    @categories = Category.all
+    @categories = current_user.categories
     json_response(@categories)
   end
 
   # POST /categories
   def create
-    @category = Category.create!(category_params)
+    @category = current_user.categories.create!(category_params)
     json_response(@category)
   end
 
@@ -34,7 +34,7 @@ class CategoriesController < ApplicationController
 
   def category_params
     # whitelist params
-    params.permit(:title, :created_by)
+    params.permit(:title)
   end
 
   def set_category
