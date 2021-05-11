@@ -8,6 +8,12 @@ class AuthenticationController < ApplicationController
     json_response(auth_token: auth_token)
   end
 
+  def logout
+    auth_token =
+      AuthenticateUser.new(auth_params[:email], auth_params[:password]).call
+    Token.delete!(value: auth_token)
+  end
+
   private
 
   def auth_params
