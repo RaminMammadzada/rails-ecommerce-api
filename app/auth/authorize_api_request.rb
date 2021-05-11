@@ -34,9 +34,8 @@ class AuthorizeApiRequest
 
   # check for token in `Authorization` header
   def http_auth_header
-    
-    if Token.include?(value: headers['Authorization'])
-      return headers['Authorization'].split.last if headers['Authorization'].present?
+    if Token.include?(value: headers['Authorization']) && headers['Authorization'].present?
+      return headers['Authorization'].split.last
     end
 
     raise(ExceptionHandler::MissingToken, Message.missing_token)
